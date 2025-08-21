@@ -125,6 +125,14 @@ public class Dad {
 							throw new DadException("You undid what?");
 						}
 						break;
+					case "delete":
+						if (command.length > 1 && INT.matcher(command[1]).matches() &&
+								taskList.size() >= Integer.valueOf(command[1]) && Integer.valueOf(command[1]) > 0) {
+							deleteTask(Integer.valueOf(command[1]) - 1);
+						} else {
+							throw new DadException("Deletin' uhhhhhh... where...");
+						}
+						break;
 					case "todo":
 						if (command.length == 1 || command[1].strip().equals("")) {
 							throw new DadException("Whatcha doin'??");
@@ -178,5 +186,14 @@ public class Dad {
 			System.out.println("	" + (i+1) + ": " + taskList.get(i));
 		}
 		System.out.println("  ----------------------------------\n");
+	}
+
+	private static void deleteTask(Integer idx) {
+		System.out.println("  ----------------------------------");
+		System.out.println("	Good riddance to this I s'pose: " + taskList.get(idx));
+		taskList.remove(idx.intValue());
+		System.out.println("	Ye got " + taskList.size() + " of 'em left");
+		System.out.println("  ----------------------------------\n");
+	
 	}
 }
