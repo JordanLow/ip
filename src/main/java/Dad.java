@@ -150,8 +150,9 @@ public class Dad {
 	private static void addTask(Task task) {
 		System.out.println("  ----------------------------------");
 		System.out.println("	Puttin' it on the list: " + task);
-		System.out.println("  ----------------------------------\n");
 		taskList.add(task);
+		System.out.println("	Ye got " + taskList.size() + " of 'em here");
+		System.out.println("  ----------------------------------\n");
 	}
 
 	private static void listTasks() {

@@ -5,14 +5,17 @@
 
   ----------------------------------
 	Puttin' it on the list: [T] [ ] task one
+	Ye got 1 of 'em here
   ----------------------------------
 
   ----------------------------------
 	Puttin' it on the list: [D] [ ] task two (by:  tomorrow night)
+	Ye got 2 of 'em here
   ----------------------------------
 
   ----------------------------------
 	Puttin' it on the list: [E] [ ] task three  (from:  saturday 4pm  | to:  sunday 1am)
+	Ye got 3 of 'em here
   ----------------------------------
 
   ----------------------------------
