@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import java.util.Arrays;
 
 public class Dad {
 
@@ -9,7 +10,7 @@ public class Dad {
 	
 	private static List<Task> taskList;
 
-	private static class Task {
+	private static abstract class Task {
 
 		private String task;
 		private char done = ' ';
@@ -40,7 +41,50 @@ public class Dad {
 
 		@Override
 		public String toString() {
-			return "[" + this.done + "] " + task;
+			return "[" + this.done + "] " + this.task;
+		}
+	}
+
+	private static class Todo extends Task {
+		public Todo(String task) {
+			super(task);
+		}
+
+		@Override
+		public String toString() {
+			return "[T] " + super.toString();
+		}
+	}
+
+	private static class Event extends Task {
+		
+		public String from;
+		public String to;
+
+		public Event(String task, String from, String to) {
+			super(task);
+			this.from = from;
+			this.to = to;		
+		}
+
+		@Override
+		public String toString() {
+			return "[E] " + super.toString() + " (from: " + this.from + " | to: " + this.to + ")";
+		}
+	}
+
+	private static class Deadline extends Task {
+		
+		public String by;
+
+		public Deadline(String task, String by) {
+			super(task);
+			this.by = by;
+		}
+
+		@Override
+		public String toString() {
+			return "[D] " + super.toString() + "(by: " + this.by + ")";
 		}
 	}
 
@@ -56,6 +100,7 @@ public class Dad {
 		boolean sentinel = true;
 		do {
 			String[] command = scanner.nextLine().split(" ");
+			String[] parse;
 			switch (command[0].toLowerCase()) {
 				case "bye":
 					sentinel = false;
@@ -67,20 +112,34 @@ public class Dad {
 					if (command.length > 1 && INT.matcher(command[1]).matches() && 
 					taskList.size() >= Integer.valueOf(command[1]) && Integer.valueOf(command[1]) > 0) {
 						taskList.get(Integer.valueOf(command[1]) - 1).mark();
-					} else {
-						addTask(new Task(String.join(" ", command)));
 					}
 					break;
 				case "unmark":
 					if (command.length > 1 && INT.matcher(command[1]).matches() &&
 					taskList.size() >= Integer.valueOf(command[1]) && Integer.valueOf(command[1]) > 0) {
 						taskList.get(Integer.valueOf(command[1]) - 1).unmark();
-					} else {
-						addTask(new Task(String.join(" ", command)));
+					}
+					break;
+				case "todo":
+					addTask(new Todo(String.join(" ", Arrays.copyOfRange(command, 1, command.length))));
+					break;
+				case "deadline":
+					parse = String.join(" ", Arrays.copyOfRange(command, 1, command.length)).strip().split("/by");
+					if (parse.length == 2 && !parse[0].strip().equals("")) {
+						addTask(new Deadline(parse[0], parse[1]));
+					}
+					break;
+				case "event":
+					parse = String.join(" ", Arrays.copyOfRange(command, 1, command.length)).split("/from");
+					if (parse.length == 2 && !parse[0].strip().equals("")) {
+						String[] parse2 = parse[1].split("/to");
+						if (parse2.length == 2 && !parse2[0].strip().equals("")) {
+							addTask(new Event(parse[0], parse2[0], parse2[1]));
+						}
 					}
 					break;
 				default:
-					addTask(new Task(String.join(" ", command)));
+					addTask(new Todo(String.join(" ", command)));
 			}
 		} while (sentinel);
 		System.out.println("  ----------------------------------");
@@ -90,7 +149,7 @@ public class Dad {
 
 	private static void addTask(Task task) {
 		System.out.println("  ----------------------------------");
-		System.out.println("	added: " + task.taskName());
+		System.out.println("	Puttin' it on the list: " + task);
 		System.out.println("  ----------------------------------\n");
 		taskList.add(task);
 	}
