@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 class Dad {
 
@@ -72,13 +74,13 @@ class Dad {
 
 	private static class Event extends Task {
 
-		public String from;
-		public String to;
+		public LocalDate from;
+		public LocalDate to;
 
 		public Event(String task, String from, String to) {
 			super(task);
-			this.from = from;
-			this.to = to;		
+			this.from = LocalDate.parse(from.strip());
+			this.to = LocalDate.parse(to.strip());		
 		}
 
 		@Override
@@ -88,17 +90,19 @@ class Dad {
 
 		@Override
 		public String toString() {
-			return "[E] " + super.toString() + " (from: " + this.from + " | to: " + this.to + ")";
+			return "[E] " + super.toString() + " (from: " 
+					+ this.from.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " | to: " 
+					+ this.to.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
 		}
 	}
 
 	private static class Deadline extends Task {
 
-		public String by;
+		public LocalDate by;
 
 		public Deadline(String task, String by) {
 			super(task);
-			this.by = by;
+			this.by = LocalDate.parse(by.strip());
 		}
 
 		@Override
@@ -108,7 +112,8 @@ class Dad {
 
 		@Override
 		public String toString() {
-			return "[D] " + super.toString() + "(by: " + this.by + ")";
+			return "[D] " + super.toString() + "(by: " 
+					+ this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
 		}
 	}
 
