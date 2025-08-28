@@ -3,8 +3,13 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.Arrays;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
-public class Dad {
+
+class Dad {
 
 	private static final Pattern INT = Pattern.compile("^\\d+$");
 
@@ -39,10 +44,14 @@ public class Dad {
 			return task;
 		}
 
+		public String toRecord() {
+			return this.task;
+		}
+
 		@Override
-			public String toString() {
-				return "[" + this.done + "] " + this.task;
-			}
+		public String toString() {
+			return "[" + this.done + "] " + this.task;
+		}
 	}
 
 	private static class Todo extends Task {
@@ -51,9 +60,14 @@ public class Dad {
 		}
 
 		@Override
-			public String toString() {
-				return "[T] " + super.toString();
-			}
+		public String toRecord() {
+			return "T|" + super.toRecord();
+		}
+
+		@Override
+		public String toString() {
+			return "[T] " + super.toString();
+		}
 	}
 
 	private static class Event extends Task {
@@ -68,9 +82,14 @@ public class Dad {
 		}
 
 		@Override
-			public String toString() {
-				return "[E] " + super.toString() + " (from: " + this.from + " | to: " + this.to + ")";
-			}
+		public String toRecord() {
+			return "E|" + super.toRecord() + "|" + this.from + "|" + this.to;
+		}
+
+		@Override
+		public String toString() {
+			return "[E] " + super.toString() + " (from: " + this.from + " | to: " + this.to + ")";
+		}
 	}
 
 	private static class Deadline extends Task {
@@ -83,18 +102,55 @@ public class Dad {
 		}
 
 		@Override
-			public String toString() {
-				return "[D] " + super.toString() + "(by: " + this.by + ")";
-			}
+		public String toRecord() {
+			return "D|" + super.toString() + "|" + this.by;
+		}
+
+		@Override
+		public String toString() {
+			return "[D] " + super.toString() + "(by: " + this.by + ")";
+		}
 	}
 
 	public static void main(String[] args) {
+
 		System.out.println("  ----------------------------------");
 		System.out.println("	Hello I'm Dad");
 		System.out.println("	Whaddya want?");
 		System.out.println("  ----------------------------------\n");
 
 		taskList = new ArrayList<>();
+
+		try {
+			File savedTasks = new File("./dad.txt");
+			Scanner fileReader = new Scanner(savedTasks);
+			while (fileReader.hasNextLine()) {
+				String[] task = fileReader.nextLine().split("\\|");
+				switch (task[0]) {
+					case "T":
+						taskList.add(new Todo(task[1]));
+						break;
+					case "D":
+						taskList.add(new Deadline(task[1], task[2]));
+						break;
+					case "E":
+						taskList.add(new Event(task[1], task[2], task[3]));
+						break;
+					default:
+						break;
+				}
+			}
+			fileReader.close();
+		} catch (FileNotFoundException err) {
+			try {
+				File savedTasks = new File("./dad.txt");
+				savedTasks.createNewFile();
+			} catch (IOException err2) {
+				err2.printStackTrace();
+			}
+		}
+
+
 
 		Scanner scanner = new Scanner(System.in);
 		boolean sentinel = true;
@@ -170,6 +226,21 @@ public class Dad {
 		System.out.println("  ----------------------------------");
 		System.out.println("	'Kay I'm headin' out");
 		System.out.println("  ----------------------------------\n");
+
+		try {
+			File oldFile = new File("./dad.txt");
+			oldFile.delete();
+			oldFile.createNewFile();
+			FileWriter taskWriter = new FileWriter("./dad.txt");
+			for (int i = 0; i < taskList.size(); i++) {
+				String task = taskList.get(i).toRecord();
+				// System.out.println(task);
+				taskWriter.write(taskList.get(i).toRecord() + "\n");
+			}
+			taskWriter.close();
+		} catch (IOException err) {
+			err.printStackTrace();
+		}
 	}
 
 	private static void addTask(Task task) {
@@ -194,6 +265,6 @@ public class Dad {
 		taskList.remove(idx.intValue());
 		System.out.println("	Ye got " + taskList.size() + " of 'em left");
 		System.out.println("  ----------------------------------\n");
-	
+
 	}
 }
