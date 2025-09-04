@@ -104,5 +104,4 @@ class TaskList {
             writer.write(taskList.get(i).toRecord() + "\n");
         }
     }
-    }
 }

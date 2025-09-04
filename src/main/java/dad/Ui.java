@@ -38,7 +38,6 @@ class Ui {
     public static void print(String contents) {
         System.out.println(contents);
     }
-    }
 }
 
 
