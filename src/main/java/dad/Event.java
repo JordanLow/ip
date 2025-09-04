@@ -15,16 +15,16 @@ class Event extends Task {
 	}
 
 	@Override
-		public String toRecord() {
-			return "E|" + super.toRecord() + "|" + this.from + "|" + this.to;
-		}
+	public String toRecord() {
+		return "E|" + super.toRecord() + "|" + this.from + "|" + this.to;
+	}
 
 	@Override
-		public String toString() {
-			return "[E] " + super.toString() + " (from: " 
+	public String toString() {
+		return "[E] " + super.toString() + " (from: " 
 				+ this.from.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " | to: " 
 				+ this.to.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
-		}
+	}
 }
 
 

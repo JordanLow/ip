@@ -6,14 +6,14 @@ class Todo extends Task {
 	}
 
 	@Override
-		public String toRecord() {
-			return "T|" + super.toRecord();
-		}
+	public String toRecord() {
+		return "T|" + super.toRecord();
+	}
 
 	@Override
-		public String toString() {
-			return "[T] " + super.toString();
-		}
+	public String toString() {
+		return "[T] " + super.toString();
+	}
 }
 
 
