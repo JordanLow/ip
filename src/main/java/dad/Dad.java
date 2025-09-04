@@ -3,31 +3,38 @@ import dad.Ui;;
 import java.util.Scanner;
 
 
-class Dad {
+public class Dad {
 
-    public static void main(String[] args) {
+    private TaskList tasks;
+    private Storage savedTasks;
 
-        Ui.printLine(false);
-        Ui.printIntro();
-        Ui.printLine(true);
-
-        Storage savedTasks = new Storage("./dad.txt");
-        TaskList tasks = savedTasks.loadFile();
-
-        Scanner scanner = new Scanner(System.in);
-        boolean isDone = true;
-        do {
-            if (Parser.parse(scanner.nextLine(), tasks)) {
-                isDone = false;
-            }
-        } while (isDone);
-
-        Ui.printLine(false);
-        Ui.printOutro();
-        Ui.printLine(true);
-
-        savedTasks.saveFile(tasks);
+    public Dad(String filename) {
+        this.savedTasks = new Storage(filename);
+        this.tasks = savedTasks.loadFile();
     }
 
+    /**
+     * Returns the intial message
+     */
+    public String getIntro() {
+	return Ui.printIntro();
+    }
 
+    /** 
+     * Processes the prompt and returns an appropriate response
+     * 
+     * @param prompt The String that the bot will respond to
+     * 
+     * @return The String that contains the reply
+     */
+    public String getResponse(String prompt) {
+        return Parser.parse(prompt, tasks);
+    }
+
+    /**
+     * Saves the current TaskList into a storage file
+     */
+    public void saveTasks() {
+        savedTasks.saveFile(tasks);
+    }
 }

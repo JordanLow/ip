@@ -3,40 +3,30 @@ package dad;
 class Ui {
 
     /**
-     * Prints the intro to output    
+     * Returns the intro message as a String
      */
-    public static void printIntro() {
-        System.out.println("    Hello I'm Dad");
-        System.out.println("    Whaddya want?");    
+     public static String printIntro() {
+         return Ui.printLine() + "\n"
+                 + "Whadd'ya want?" + "\n"
+                 + Ui.printLine();
+     }
+
+    /**
+     * Returns a String to make a line 
+     */
+    public static String printLine() {
+        return "  ----------------------------------";
     }
 
     /**
-     * Prints the outro to output
-     */
-    public static void printOutro() {
-        System.out.println("    'Kay I'm headin' out");
-    }
-
-    /**
-     * Prints a line to output, with a newline if it's a closing line
-     *
-     * @param isCloser A boolean for if the intended line is an opening line or a closing line
-     */
-    public static void printLine(boolean isCloser) {
-        if (isCloser) {
-            System.out.println("  ----------------------------------\n");
-        } else {
-            System.out.println("  ----------------------------------");
-        }
-    }
-
-    /**
-     * Prints the given input to output
+     * Formats the given String for output
      *
      * @param contents The String to be printed to output
+     *
+     * @return The String formatted for output
      */
-    public static void print(String contents) {
-        System.out.println(contents);
+    public static String print(String contents) {
+        return contents + "\n";
     }
 }
 
