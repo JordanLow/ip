@@ -9,6 +9,9 @@ class Task {
 		this.task = task;
 	}
 
+	/** 
+	 * Marks this task as done and prints to Ui accordingly
+	 */
 	public void mark() {
 		Ui.printLine(false);
 		this.done = 'X';
@@ -17,6 +20,9 @@ class Task {
 		Ui.printLine(true);
 	}
 
+	/**
+	 * Marks this task as not-done and prints to Ui accordingly
+	 */
 	public void unmark() {
 		Ui.printLine(false);
 		this.done = ' ';
@@ -25,16 +31,22 @@ class Task {
 		Ui.printLine(true);
 	}
 
+	/**
+	 * Returns the main body of the task
+	 */
 	public String taskName() {
 		return task;
 	}
 
+	/**
+	 * Returns the serialized version of this task for storage purposes
+	 */
 	public String toRecord() {
 		return this.task;
 	}
 
 	@Override
-		public String toString() {
-			return "[" + this.done + "] " + this.task;
-		}
+	public String toString() {
+		return "[" + this.done + "] " + this.task;
+	}
 }

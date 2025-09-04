@@ -13,6 +13,11 @@ class Storage {
 		this.fileName = fileName;
 	}
 
+	/**
+	 * Reads the storage file as a TaskList
+	 *
+	 * @return TaskList with the tasks stored in the file
+	 */
 	public TaskList loadFile() {
 		TaskList savedTasks = new TaskList();
 		try {
@@ -47,6 +52,11 @@ class Storage {
 		}
 	}
 
+	/**
+	 * Saves the given TaskList into the storage file
+	 *
+	 * @param tasks The TaskList to save into the file
+	 */
 	public void saveFile(TaskList tasks) {
 		try {
 			File oldFile = new File(this.fileName);

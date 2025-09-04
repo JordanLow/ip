@@ -4,6 +4,13 @@ import java.util.Arrays;
 
 class Parser {
 
+	/**
+	 * Parses the given raw text into its component command and arguments, and executes them as intended.
+	 * 
+	 * @param rawText The raw input
+	 * @param taskList The current list of tasks
+	 * @return True if program should terminate afterwards, False otherwise
+	 */
 	public static boolean parse(String rawText, TaskList taskList) {
 		try {
 			String[] command = rawText.split(" ");

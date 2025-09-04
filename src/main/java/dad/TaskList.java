@@ -16,6 +16,9 @@ class TaskList {
 		taskList = new ArrayList<>();
 	}
 
+	/**
+	 * Adds the provided task into this task list and prints to Ui accordingly
+	 */
 	public void addTask(Task task) {
 		Ui.printLine(false);
 		Ui.print("	Puttin' it on the list: " + task);
@@ -24,6 +27,9 @@ class TaskList {
 		Ui.printLine(true);
 	}
 
+	/**
+	 * Prints the current task list to the Ui accordingly
+	 */
 	public void listTasks() {
 		Ui.printLine(false);
 		for (int i = 0; i < taskList.size(); i++) {
@@ -32,6 +38,12 @@ class TaskList {
 		Ui.printLine(true);
 	}
 
+
+	/**
+	 * Deletes the task at the given index from the list of tasks and prints to Ui accordingly
+	 *
+	 * @throws DadException If the given argument is not a valid index or an out-of-range index
+	 */
 	public void deleteTask(String idx) throws DadException {
 		if (INT.matcher(idx).matches() &&
 				taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0) {
@@ -45,6 +57,11 @@ class TaskList {
 		}
 	}
 
+	/**
+	 * Marks as done the task at the given index from the list of tasks
+	 *
+	 * @throws DadException If the given argument is not a valid index or an out-of-range index
+	 */
 	public void markTask(String idx) throws DadException {
 		if (INT.matcher(idx).matches() && 
 				taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0) {
@@ -54,6 +71,11 @@ class TaskList {
 		}
 	}
 
+	/**
+	 * Marks as not-done the task at the given index from the list of tasks
+	 *
+	 * @throws DadException If the given argumenti s not a valid index or an out-of-range index
+	 */
 	public void unmarkTask(String idx) throws DadException {
 		if (INT.matcher(idx).matches() &&
 				taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0) {
@@ -63,10 +85,19 @@ class TaskList {
 		}
 	}
 
+	/**
+	 * Adds the provided task into this task list without printing to Ui 
+	 */
 	public void addTaskSilent(Task task) {
 		taskList.add(task);
 	}
 
+	/**
+	 * Writes the current serialized list of tasks into a storage file
+	 * 
+	 * @param writer The writer for the file to be written to
+	 # @throws IOException If writing using the writer is somehow an invalid action
+	 */
 	public void saveTasksHelper(FileWriter writer) throws IOException {
 		for (int i = 0; i < taskList.size(); i++) {
 			String task = taskList.get(i).toRecord();
