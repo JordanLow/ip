@@ -17,21 +17,21 @@ class Parser {
 				break;
 			case "mark":
 				if (commands.length > 1) {
-					tasks.markTask(command[1]);
+					tasks.markTask(commands[1]);
 				} else {
 					throw new DadException("Finishing...?");
 				}
 				break;
 			case "unmark":
 				if (commands.length > 1) {
-					tasks.unmarkTask(command[1]);
+					tasks.unmarkTask(commands[1]);
 				} else {
 					throw new DadException("You undid what?");
 				}
 				break;
 			case "delete":
 				if (commands.length > 1) {
-					tasks.deleteTask(command[1]);
+					tasks.deleteTask(commands[1]);
 				} else {
 					throw new DadException("Deletin' uhhhhhh... where...");
 				}

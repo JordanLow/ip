@@ -26,7 +26,7 @@ class Dad {
 		Ui.printOutro();
 		Ui.printLine(true);
 
-		savedTasks.saveFile(taskList);
+		savedTasks.saveFile(tasks);
 	}
 
 
