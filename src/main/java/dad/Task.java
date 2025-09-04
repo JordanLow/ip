@@ -10,25 +10,25 @@ class Task {
     }
 
     /** 
-     * Marks this task as done and prints to Ui accordingly
+     * Marks this task as done and returns the appropriate response
      */
-    public void mark() {
-        Ui.printLine(false);
+    public String mark() {
+        String out = Ui.printLine() + "\n";
         this.done = 'X';
-        Ui.print("  So you say huh?");
-        Ui.print("  " + this);
-        Ui.printLine(true);
+        out += Ui.print("  So you say huh?");
+        out += Ui.print("  " + this);
+        return out + Ui.printLine();
     }
 
     /**
-     * Marks this task as not-done and prints to Ui accordingly
+     * Marks this task as not-done and returns the appropriate response
      */
-    public void unmark() {
-        Ui.printLine(false);
+    public String unmark() {
+        String out = Ui.printLine() + "\n";
         this.done = ' ';
-        Ui.print("  If you say so...");
-        Ui.print("  " + this);
-        Ui.printLine(true);
+        out += Ui.print("  If you say so...");
+        out += Ui.print("  " + this);
+        return out + Ui.printLine();
     }
 
     /**

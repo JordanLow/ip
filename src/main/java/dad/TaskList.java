@@ -17,88 +17,98 @@ class TaskList {
     }
 
     /**
-     * Adds the provided task into this task list and prints to Ui accordingly
+     * Adds the provided task into this task list and returns the appropriate response
+     *
+     * @return The output String
      */
-    public void addTask(Task task) {
-        Ui.printLine(false);
-        Ui.print("  Puttin' it on the list: " + task);
+    public String addTask(Task task) {
+        String out = "";
+        out += Ui.printLine() + "\n";
+        out += Ui.print("  Puttin' it on the list: " + task);
         taskList.add(task);
-        Ui.print("  Ye got " + taskList.size() + " of 'em here");
-        Ui.printLine(true);
+        out += Ui.print("  Ye got " + taskList.size() + " of 'em here");
+        return out + Ui.printLine();
     }
 
     /**
-     * Prints the current task list to the Ui accordingly
+     * Returns a String representation of all current tasks
      */
-    public void listTasks() {
-        Ui.printLine(false);
+    public String listTasks() {
+        String out = Ui.printLine() + "\n";
         for (int i = 0; i < taskList.size(); i++) {
-            Ui.print("  " + (i+1) + ": " + taskList.get(i));
+            out += Ui.print("  " + (i+1) + ": " + taskList.get(i));
         }
-        Ui.printLine(true);
+        return out + Ui.printLine();
     }
 
     /**
-     * Lists out the tasks that contain the given String and prints it to Ui 
+     * Lists out the tasks that contain the given String and returns its String representation 
      */
-    public void findTasks(String search) {
-        Ui.printLine(false);
-        Ui.print("  Think I got what'cha lookin' for right here: ");
+    public String findTasks(String search) {
+        String out = Ui.printLine() + "\n";
+        out += Ui.print("  Think I got what'cha lookin' for right here: ");
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).toString().contains(search)) {
-                Ui.print("  " + (i+1) + ": " + taskList.get(i));
+                out += Ui.print("  " + (i+1) + ": " + taskList.get(i));
             }
         }
+        return out + Ui.printLine();
     }
 
     /**
-     * Deletes the task at the given index from the list of tasks and prints to Ui accordingly
+     * Deletes the task at the given index from the list of tasks and returns the appropriate response
+     *
+     * @return The output String
      *
      * @throws DadException If the given argument is not a valid index or an out-of-range index
      */
-    public void deleteTask(String idx) throws DadException {
+    public String deleteTask(String idx) throws DadException {
         if (INT.matcher(idx).matches() &&
                 taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0) {
-            Ui.printLine(false);    
-            Ui.print("  Good riddance to this I s'pose: " + this.taskList.get(Integer.valueOf(idx) - 1));
+            String out = Ui.printLine() + "\n";    
+            out += Ui.print("  Good riddance to this I s'pose: " + this.taskList.get(Integer.valueOf(idx) - 1));
             taskList.remove(Integer.valueOf(idx) - 1);
-            Ui.print("  Ye got " + this.taskList.size() + " of 'em left");
-            Ui.printLine(true);
+            out += Ui.print("  Ye got " + this.taskList.size() + " of 'em left");
+            return out + Ui.printLine();
         } else {
             throw new DadException("Deletin' uhhhhhh... where...");
         }
     }
 
     /**
-     * Marks as done the task at the given index from the list of tasks
+     * Marks as done the task at the given index from the list of tasks and returns the appropriate response
+     *
+     * @return The output String
      *
      * @throws DadException If the given argument is not a valid index or an out-of-range index
      */
-    public void markTask(String idx) throws DadException {
+    public String markTask(String idx) throws DadException {
         if (INT.matcher(idx).matches() && 
                 taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0) {
-            taskList.get(Integer.valueOf(idx) - 1).mark();
+            return taskList.get(Integer.valueOf(idx) - 1).mark();
         } else {
             throw new DadException("Finishing...?");
         }
     }
 
     /**
-     * Marks as not-done the task at the given index from the list of tasks
+     * Marks as not-done the task at the given index from the list of tasks and returns the appropriate response
+     *
+     * @return the output String
      *
      * @throws DadException If the given argumenti s not a valid index or an out-of-range index
      */
-    public void unmarkTask(String idx) throws DadException {
+    public String unmarkTask(String idx) throws DadException {
         if (INT.matcher(idx).matches() &&
                 taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0) {
-            taskList.get(Integer.valueOf(idx) - 1).unmark();
+            return taskList.get(Integer.valueOf(idx) - 1).unmark();
         } else {
             throw new DadException("You undid what?");
         }
     }
 
     /**
-     * Adds the provided task into this task list without printing to Ui 
+     * Adds the provided task into this task list without returning a response message 
      */
     public void addTaskSilent(Task task) {
         taskList.add(task);
