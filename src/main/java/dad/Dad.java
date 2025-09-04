@@ -12,20 +12,20 @@ class Dad {
 		Ui.printLine(true);
 
 		Storage savedTasks = new Storage("./dad.txt");
-
-		TaskList taskList = savedTasks.loadFile();
+		TaskList tasks = savedTasks.loadFile();
 
 		Scanner scanner = new Scanner(System.in);
-		boolean sentinel = true;
+		boolean isDone = true;
 		do {
-			if (Parser.parse(scanner.nextLine(), taskList)) {
-				sentinel = false;
+			if (Parser.parse(scanner.nextLine(), tasks)) {
+				isDone = false;
 			}
-		} while (sentinel);
+		} while (isDone);
 
 		Ui.printLine(false);
 		Ui.printOutro();
 		Ui.printLine(true);
+
 		savedTasks.saveFile(taskList);
 	}
 

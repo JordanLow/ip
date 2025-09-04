@@ -4,68 +4,69 @@ import java.util.Arrays;
 
 class Parser {
 
-	public static boolean parse(String rawText, TaskList taskList) {
+	public static boolean parse(String rawText, TaskList tasks) {
 		try {
-			String[] command = rawText.split(" ");
-			String[] parse;
-			switch (command[0].toLowerCase()) {
-				case "bye":
-					return true;
-				case "list":
-					taskList.listTasks();
-					break;
-				case "mark":
-					if (command.length > 1) {
-						taskList.markTask(command[1]);
+			String[] commands = rawText.split(" ");
+			String[] parses;
+			
+			switch (commands[0].toLowerCase()) {
+			case "bye":
+				return true;
+			case "list":
+				tasks.listTasks();
+				break;
+			case "mark":
+				if (commands.length > 1) {
+					tasks.markTask(command[1]);
+				} else {
+					throw new DadException("Finishing...?");
+				}
+				break;
+			case "unmark":
+				if (commands.length > 1) {
+					tasks.unmarkTask(command[1]);
+				} else {
+					throw new DadException("You undid what?");
+				}
+				break;
+			case "delete":
+				if (commands.length > 1) {
+					tasks.deleteTask(command[1]);
+				} else {
+					throw new DadException("Deletin' uhhhhhh... where...");
+				}
+				break;
+			case "todo":
+				if (commands.length == 1 || commands[1].strip().equals("")) {
+					throw new DadException("Whatcha doin'??");
+				}
+				tasks.addTask(new Todo(String.join(" ", Arrays.copyOfRange(commands, 1, commands.length))));
+				break;
+			case "deadline":
+				parses = String.join(" ", Arrays.copyOfRange(commands, 1, commands.length)).strip().split("/by");
+				if (parses.length == 2 && !parses[0].strip().equals("")) {
+					tasks.addTask(new Deadline(parses[0], parses[1]));
+				} else {
+					throw new DadException("When and what's due??");
+				}
+				break;
+			case "event":
+				parses = String.join(" ", Arrays.copyOfRange(commands, 1, commands.length)).split("/from");
+				if (parses.length == 2 && !parses[0].strip().equals("")) {
+					String[] parses2 = parses[1].split("/to");
+					if (parses2.length == 2 && !parses2[0].strip().equals("")) {
+						tasks.addTask(new Event(parses[0], parses2[0], parses2[1]));
 					} else {
-						throw new DadException("Finishing...?");
+						throw new DadException("What event when??");
 					}
-					break;
-				case "unmark":
-
-					if (command.length > 1) {
-						taskList.unmarkTask(command[1]);
-					} else {
-						throw new DadException("You undid what?");
-					}
-					break;
-				case "delete":
-					if (command.length > 1) {
-						taskList.deleteTask(command[1]);
-					} else {
-						throw new DadException("Deletin' uhhhhhh... where...");
-					}
-					break;
-				case "todo":
-					if (command.length == 1 || command[1].strip().equals("")) {
-						throw new DadException("Whatcha doin'??");
-					}
-					taskList.addTask(new Todo(String.join(" ", Arrays.copyOfRange(command, 1, command.length))));
-					break;
-				case "deadline":
-					parse = String.join(" ", Arrays.copyOfRange(command, 1, command.length)).strip().split("/by");
-					if (parse.length == 2 && !parse[0].strip().equals("")) {
-						taskList.addTask(new Deadline(parse[0], parse[1]));
-					} else {
-						throw new DadException("When and what's due??");
-					}
-					break;
-				case "event":
-					parse = String.join(" ", Arrays.copyOfRange(command, 1, command.length)).split("/from");
-					if (parse.length == 2 && !parse[0].strip().equals("")) {
-						String[] parse2 = parse[1].split("/to");
-						if (parse2.length == 2 && !parse2[0].strip().equals("")) {
-							taskList.addTask(new Event(parse[0], parse2[0], parse2[1]));
-						} else {
-							throw new DadException("What event when??");
-						}
-					} else {
-						throw new DadException("Huh? Event?");
-					}
-					break;
-				default:
-					throw new DadException("I don't get it");
+				} else {
+					throw new DadException("Huh? Event?");
+				}
+				break;
+			default:
+				throw new DadException("I don't get it");
 			}
+
 		} catch (DadException e) {
 			System.out.println(e);
 		}

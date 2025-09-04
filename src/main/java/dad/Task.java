@@ -34,7 +34,7 @@ class Task {
 	}
 
 	@Override
-		public String toString() {
-			return "[" + this.done + "] " + this.task;
-		}
+	public String toString() {
+		return "[" + this.done + "] " + this.task;
+	}
 }

@@ -14,13 +14,13 @@ class Deadline extends Task {
 	}
 
 	@Override
-		public String toRecord() {
-			return "D|" + super.toRecord() + "|" + this.by;
-		}
+	public String toRecord() {
+		return "D|" + super.toRecord() + "|" + this.by;
+	}
 
 	@Override
-		public String toString() {
-			return "[D] " + super.toString() + "(by: " 
+	public String toString() {
+		return "[D] " + super.toString() + "(by: " 
 				+ this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
-		}
+	}
 }
