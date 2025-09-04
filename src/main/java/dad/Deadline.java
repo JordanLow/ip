@@ -6,21 +6,21 @@ import java.time.temporal.ChronoUnit;
 
 class Deadline extends Task {
 
-	public LocalDate by;
+    public LocalDate by;
 
-	public Deadline(String task, String by) {
-		super(task);
-		this.by = LocalDate.parse(by.strip());
-	}
+    public Deadline(String task, String by) {
+        super(task);
+        this.by = LocalDate.parse(by.strip());
+    }
 
-	@Override
-	public String toRecord() {
-		return "D|" + super.toRecord() + "|" + this.by;
-	}
+    @Override
+    public String toRecord() {
+        return "D|" + super.toRecord() + "|" + this.by;
+    }
 
-	@Override
-	public String toString() {
-		return "[D] " + super.toString() + "(by: " 
-				+ this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
-	}
+    @Override
+    public String toString() {
+        return "[D] " + super.toString() + "(by: " 
+                + this.by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
+    }
 }
