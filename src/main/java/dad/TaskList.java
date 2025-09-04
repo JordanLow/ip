@@ -32,6 +32,19 @@ class TaskList {
 		Ui.printLine(true);
 	}
 
+	/**
+	 * Lists out the tasks that contain the given String and prints it to Ui 
+	 */
+	public void findTasks(String search) {
+		Ui.printLine(false);
+		Ui.print("	Think I got what'cha lookin' for right here: ");
+		for (int i = 0; i < taskList.size(); i++) {
+			if (taskList.get(i).toString().contains(search)) {
+				Ui.print("	" + (i+1) + ": " + taskList.get(i));
+			}
+		}
+	}
+
 	public void deleteTask(String idx) throws DadException {
 		if (INT.matcher(idx).matches() &&
 				taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0) {

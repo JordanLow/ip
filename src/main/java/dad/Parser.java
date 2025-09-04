@@ -63,6 +63,13 @@ class Parser {
 						throw new DadException("Huh? Event?");
 					}
 					break;
+				case "find":
+					if (command.length > 1) {
+						taskList.findTasks(String.join(" ", Arrays.copyOfRange(command, 1, command.length)));
+					} else {
+						throw new DadException("Hm, lookin' for what?");
+					}
+					break;
 				default:
 					throw new DadException("I don't get it");
 			}
