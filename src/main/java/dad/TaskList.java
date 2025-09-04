@@ -38,6 +38,18 @@ class TaskList {
         Ui.printLine(true);
     }
 
+    /**
+     * Lists out the tasks that contain the given String and prints it to Ui 
+     */
+    public void findTasks(String search) {
+        Ui.printLine(false);
+        Ui.print("  Think I got what'cha lookin' for right here: ");
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).toString().contains(search)) {
+                Ui.print("  " + (i+1) + ": " + taskList.get(i));
+            }
+        }
+    }
 
     /**
      * Deletes the task at the given index from the list of tasks and prints to Ui accordingly

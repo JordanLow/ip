@@ -22,7 +22,14 @@ class Parser {
             case "list":
                 tasks.listTasks();
                 break;
-            case "mark":
+            case "find":
+                if (commands.length > 1) {
+                    tasks.findTasks(String.join(" ", Arrays.copyOfRange(commands, 1, commands.length)));
+                } else {
+                    throw new DadException("Hm, lookin' for what?");
+                }
+                break;
+           case "mark":
                 if (commands.length > 1) {
                     tasks.markTask(commands[1]);
                 } else {
@@ -78,7 +85,6 @@ class Parser {
         }
         return false;
     }
-
 }
 
 
