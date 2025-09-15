@@ -11,6 +11,7 @@ public class Dad {
     public Dad(String filename) {
         this.savedTasks = new Storage(filename);
         this.tasks = savedTasks.loadFile();
+	assert this.tasks != null : "Tasks missing!";
     }
 
     /**
