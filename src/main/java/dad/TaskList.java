@@ -63,16 +63,16 @@ class TaskList {
      * @throws DadException If the given argument is not a valid index or an out-of-range index
      */
     public String deleteTask(String idx) throws DadException {
-        if (INT.matcher(idx).matches() &&
-                taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0) {
-            String out = Ui.printLine() + "\n";    
-            out += Ui.print("  Good riddance to this I s'pose: " + this.taskList.get(Integer.valueOf(idx) - 1));
-            taskList.remove(Integer.valueOf(idx) - 1);
-            out += Ui.print("  Ye got " + this.taskList.size() + " of 'em left");
-            return out + Ui.printLine();
-        } else {
+        if (!(INT.matcher(idx).matches() &&
+                taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0)) {
             throw new DadException("Deletin' uhhhhhh... where...");
         }
+
+        String out = Ui.printLine() + "\n";    
+        out += Ui.print("  Good riddance to this I s'pose: " + this.taskList.get(Integer.valueOf(idx) - 1));
+        taskList.remove(Integer.valueOf(idx) - 1);
+        out += Ui.print("  Ye got " + this.taskList.size() + " of 'em left");
+        return out + Ui.printLine();
     }
 
     /**
@@ -83,12 +83,12 @@ class TaskList {
      * @throws DadException If the given argument is not a valid index or an out-of-range index
      */
     public String markTask(String idx) throws DadException {
-        if (INT.matcher(idx).matches() && 
-                taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0) {
-            return taskList.get(Integer.valueOf(idx) - 1).mark();
-        } else {
-            throw new DadException("Finishing...?");
+         if (!(INT.matcher(idx).matches() &&
+                taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0)) {
+            throw new DadException("Deletin' uhhhhhh... where...");
         }
+        
+        return taskList.get(Integer.valueOf(idx) - 1).mark();
     }
 
     /**
@@ -99,12 +99,12 @@ class TaskList {
      * @throws DadException If the given argumenti s not a valid index or an out-of-range index
      */
     public String unmarkTask(String idx) throws DadException {
-        if (INT.matcher(idx).matches() &&
-                taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0) {
-            return taskList.get(Integer.valueOf(idx) - 1).unmark();
-        } else {
+        if (!(INT.matcher(idx).matches() &&
+                taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0)) {
             throw new DadException("You undid what?");
         }
+
+        return taskList.get(Integer.valueOf(idx) - 1).unmark();
     }
 
     /**
