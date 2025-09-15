@@ -62,6 +62,7 @@ class Storage {
      * @param tasks The TaskList to save into the file
      */
     public void saveFile(TaskList tasks) {
+        assert tasks != null : "There should be tasks to save!";
         try {
             File oldFile = new File(this.fileName);
             oldFile.delete();
