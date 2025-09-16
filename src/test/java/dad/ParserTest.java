@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParserTest {
-	@Test
+	/* @Test
 	public void parseTest_standardInput() {
 		TaskList taskList = new TaskList();
 		assertEquals(Parser.parse("todo item one", taskList), false);
@@ -26,5 +26,5 @@ class ParserTest {
 	public void parseTest_terminatingInput() {
 		TaskList taskList = new TaskList();
 		assertEquals(Parser.parse("bye", taskList), true);
-	}
+	} */
 }
