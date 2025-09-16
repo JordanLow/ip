@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
-class Event extends Task {
+public class Event extends Task {
 
     public LocalDate from;
     public LocalDate to;

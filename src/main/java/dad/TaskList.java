@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 
 
-class TaskList {
+public class TaskList {
 
     private final Pattern INT = Pattern.compile("^\\d+$");
     private List<Task> taskList;
@@ -56,55 +56,35 @@ class TaskList {
     }
 
     /**
-     * Deletes the task at the given index from the list of tasks and returns the appropriate response
+     * Deletes the given task and returns the appropriate response
      *
      * @return The output String
-     *
-     * @throws DadException If the given argument is not a valid index or an out-of-range index
      */
-    public String deleteTask(String idx) throws DadException {
-        if (!(INT.matcher(idx).matches() &&
-                taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0)) {
-            throw new DadException("Deletin' uhhhhhh... where...");
-        }
+    public String deleteTask(Task task) {
 
         String out = Ui.printLine() + "\n";    
-        out += Ui.print("  Good riddance to this I s'pose: " + this.taskList.get(Integer.valueOf(idx) - 1));
-        taskList.remove(Integer.valueOf(idx) - 1);
+        out += Ui.print("  Good riddance to this I s'pose: " + task);
+        taskList.remove(task);
         out += Ui.print("  Ye got " + this.taskList.size() + " of 'em left");
         return out + Ui.printLine();
     }
 
     /**
-     * Marks as done the task at the given index from the list of tasks and returns the appropriate response
+     * Marks as done the given task and returns the appropriate response
      *
      * @return The output String
-     *
-     * @throws DadException If the given argument is not a valid index or an out-of-range index
      */
-    public String markTask(String idx) throws DadException {
-         if (!(INT.matcher(idx).matches() &&
-                taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0)) {
-            throw new DadException("Deletin' uhhhhhh... where...");
-        }
-        
-        return taskList.get(Integer.valueOf(idx) - 1).mark();
+    public String markTask(Task task) {
+        return task.mark();
     }
 
     /**
-     * Marks as not-done the task at the given index from the list of tasks and returns the appropriate response
+     * Marks as not-done the given task and returns the appropriate response
      *
      * @return the output String
-     *
-     * @throws DadException If the given argumenti s not a valid index or an out-of-range index
      */
-    public String unmarkTask(String idx) throws DadException {
-        if (!(INT.matcher(idx).matches() &&
-                taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0)) {
-            throw new DadException("You undid what?");
-        }
-
-        return taskList.get(Integer.valueOf(idx) - 1).unmark();
+    public String unmarkTask(Task task) {
+        return task.unmark();
     }
 
     /**
@@ -112,6 +92,20 @@ class TaskList {
      */
     public void addTaskSilent(Task task) {
         taskList.add(task);
+    }
+
+    /**
+     * Checks if the input string is a valid index and returns the Task at that index if so
+     *
+     * @throws DadException if the given argument is not a valid index or an out-of-range index
+     */
+    public Task validateIndex(String idx) throws DadException {
+         if (!(INT.matcher(idx).matches() &&
+                taskList.size() >= Integer.valueOf(idx) && Integer.valueOf(idx) > 0)) {
+            throw new DadException("Iunno where you're lookin' chief...");
+        }
+
+        return taskList.get(Integer.valueOf(idx) - 1);
     }
 
     /**
