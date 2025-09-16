@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 
-class Deadline extends Task {
+public class Deadline extends Task {
 
     public LocalDate by;
 

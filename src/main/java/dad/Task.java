@@ -1,6 +1,6 @@
 package dad;
 
-class Task {
+public abstract class Task {
 
     private String task;
     private char done = ' ';
