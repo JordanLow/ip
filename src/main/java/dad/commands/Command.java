@@ -8,6 +8,13 @@ public abstract class Command {
 
     public static Stack<Command> pushdown = new Stack<>();
 
+    /**
+     * A factory to generate the correct type of Command based on the input
+     * 
+     * @return a Command of the correct subtype based on the command
+     *
+     * @throws DadException if the input is malformed or invalid in any way
+     */
     public static Command of(String[] commands, TaskList tasks) throws DadException {
         
         switch (commands[0].toLowerCase()) {
@@ -34,8 +41,18 @@ public abstract class Command {
         }
     }
 
+    /**
+     * Executes the task described by the Command subtype and returns the appropriate output
+     *
+     * @return the output String to be printed
+     */
     abstract public String execute();
 
+    /**
+     * Executes the appropriate Undo action of the Command subtype, returning the appropriate output
+     *
+     * @return the output String to be printed
+     */
     public String undo() {
         return "";
     }
