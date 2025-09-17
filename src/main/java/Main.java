@@ -47,14 +47,14 @@ public class Main extends Application {
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-        stage.setTitle("Duke");
+        stage.setTitle("Dad");
         stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        stage.setMinHeight(700.0);
+        stage.setMinWidth(500.0);
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        mainLayout.setPrefSize(500.0, 700.0);
 
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(495, 685);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -63,7 +63,7 @@ public class Main extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        userInput.setPrefWidth(425.0);
 
         sendButton.setPrefWidth(55.0);
 
